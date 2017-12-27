@@ -1,8 +1,27 @@
 language: go
 
 go:
-    - 1.6.x
-    - 1.7.x
     - 1.8.x
     - 1.9.x
     - tip
+
+script:              # 执行:下面的命令
+  - ls  -al
+  - ls  -al build/
+  - go test -v -cover=true ./job/...
+  - go test -v -cover=true ./cmd/...
+  - go test -v -cover=true ./utils/...
+  - make build
+  - make docker
+
+before_deploy:       # 部署之前
+  # 使用 mv 命令进行修改apk文件的名字
+  - ls  -al build/
+#deploy:              # 部署
+#  provider: releases # 部署到GitHub Release，除此之外，Travis CI还支持发布到fir.im、AWS、Google App Engine等
+#  api_key:           # 填写GitHub的token （Settings -> Personal access tokens -> Generate new token）
+#    secure: 7f4dc45a19f742dce39cbe4d1e5852xxxxxxxxx
+#  file:    # 部署文件路径
+#  skip_cleanup: true     # 设置为true以跳过清理,不然apk文件就会被清理
+#  on:     # 发布时机
+#    tags: true       # tags设置为true表示只有在有tag的情况下才部署
