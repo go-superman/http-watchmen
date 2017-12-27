@@ -6,12 +6,11 @@ go:
 
 script:              # 执行:下面的命令
   - ls  -al
-  - ls  -al build/
   - go test -v -cover=true ./job/...
   - go test -v -cover=true ./cmd/...
   - go test -v -cover=true ./utils/...
-  - make build
-  - make docker
+  - go build
+  - ls -al 
 
 before_deploy:       # 部署之前
   # 使用 mv 命令进行修改apk文件的名字
