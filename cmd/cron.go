@@ -16,7 +16,7 @@ package cmd
 
 import (
 	"encoding/json"
-	"http-watchmen/job"
+	"github.com/go-superman/http-watchmen/job"
 	"github.com/go-superman/http-watchmen/logger"
 	"os"
 	"os/signal"

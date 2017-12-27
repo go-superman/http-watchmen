@@ -16,7 +16,7 @@ package cmd
 
 import (
 	"fmt"
-	"http-watchmen/job"
+	"github.com/go-superman/http-watchmen/job"
 	"github.com/go-superman/http-watchmen/logger"
 
 	"encoding/json"
