@@ -17,6 +17,11 @@ func init() {
 	innerLog.EnableFuncCallDepth(true)
 	innerLog.SetLogFuncCallDepth(3)
 }
+func ResetLevel(level int)  {
+	innerLog.SetLevel(level)
+	innerLog.EnableFuncCallDepth(true)
+	innerLog.SetLogFuncCallDepth(3)
+}
 
 func Warn(v ...interface{}) {
 	innerLog.Warn(fmt.Sprint(v...))
