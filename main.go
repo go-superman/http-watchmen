@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/go-superman/http-watchmen/cmd"
+	"http-watchmen/cmd"
 	"github.com/go-superman/http-watchmen/logger"
 	"sync"
 )

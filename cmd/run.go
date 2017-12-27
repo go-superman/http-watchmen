@@ -16,7 +16,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/go-superman/http-watchmen/job"
+	"http-watchmen/job"
 	"github.com/go-superman/http-watchmen/logger"
 
 	"encoding/json"
@@ -25,11 +25,16 @@ import (
 )
 
 var jobName string
+var redisAddr string
+var redisPasswd string
+var redisDBIndex int
+var serPort int
+var logLevel int
 
 // runCmd represents the run command
 var runCmd = &cobra.Command{
 	Use:   "run",
-	Short: "Run backup job",
+	Short: "Run job",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
@@ -90,15 +95,17 @@ func checkFlag(f *flag.Flag) (err error) {
 }
 
 func init() {
+	RootCmd.PersistentFlags().StringVar(&redisAddr, "redisAddr", "localhost:6379", "redis ser addr")
+	RootCmd.PersistentFlags().StringVar(&redisPasswd, "redisPasswd", "", "redis ser passwd")
+	RootCmd.PersistentFlags().IntVar(&redisDBIndex, "redisDBIndex", 0, "redis ser DB 0/1/..")
+	RootCmd.PersistentFlags().IntVar(&logLevel, "logLevel",  6, "info")
+
 	RootCmd.AddCommand(runCmd)
-
-	runCmd.PersistentFlags().StringVar(&jobName, "jobname", "", "which jobname you want to run")
+	runCmd.PersistentFlags().StringVar(&jobName, "jobName", "", "which job you want to run")
 	// Here you will define your flags and configuration settings.
-
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// runCmd.PersistentFlags().String("foo", "", "A help for foo")
-
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// runCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
