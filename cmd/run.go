@@ -61,19 +61,23 @@ to quickly create a Cobra application.`,
 		}
 
 		logger.Infof("config-json:%v", string(b))
-		jobName := cmd.Flag("jobname")
+		jobName := cmd.Flag("jobName")
 		err = checkFlag(jobName)
 		if err != nil {
 			logger.Errorf("err:%v", err)
 			return
 		}
 
-		for _, job := range bcJob.Jobs {
+		for _, task := range bcJob.Jobs {
 			logger.Debugf("job:%v job.name:%v   jobname:%v  bcJob.Mail:%v",
-				job, job.Name, jobName.Value.String(), bcJob.Mail)
-			if jobName.Value.String() == job.Name {
-				job.Mail = &bcJob.Mail
-				job.Run()
+				task, task.Name, jobName.Value.String(), bcJob.Mail)
+			if jobName.Value.String() == task.Name {
+				task.Mail = &bcJob.Mail
+				task.Timezone = bcJob.Timezone
+				task.RedisAddr = parseRootCmd("redisAddr")
+				task.RedisPasswd = parseRootCmd("redisPasswd")
+				task.RedisDB = parseRootCmdInt("redisDBIndex", 0)
+				task.Run()
 			}
 		}
 
@@ -82,7 +86,7 @@ to quickly create a Cobra application.`,
 
 func checkFlag(f *flag.Flag) (err error) {
 	if f == nil {
-		err = fmt.Errorf("%v..%v", f.Name, f.Usage)
+		err = fmt.Errorf("%v", f)
 		return
 	}
 	//
