@@ -5,6 +5,5 @@
 4. 可以单独启动该程序，也可以下载到app docker中一起运行.
 
 #### todo
-1.任务状态保存到redis
 ---
 [![Build Status](https://travis-ci.org/go-superman/http-watchmen.svg?branch=master)](https://travis-ci.org/go-superman/http-watchmen)
