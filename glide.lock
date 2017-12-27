@@ -1,0 +1,36 @@
+hash: 16504b8333a229abe232b416b5904f2ee0c8d600539246274f0c92cbeac9092b
+updated: 2017-12-27T09:53:29.440523184+08:00
+imports:
+- name: github.com/astaxie/beego
+  version: f16688817aa428d10361394015b40d096b680542
+  subpackages:
+  - logs
+- name: github.com/go-superman/http-watchmen
+  version: bd7e73cd8c4d04c33c15c34caf874a33da3dacc4
+  subpackages:
+  - cmd
+  - job
+  - logger
+  - mail
+  - utils
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/moul/http2curl
+  version: 9ac6cf4d929b2fa8fd2d2e6dec5bb0feb4f4911d
+- name: github.com/parnurzeal/gorequest
+  version: 8e3aed27fe49f7fdc765dad067845f600fc984e8
+- name: github.com/pkg/errors
+  version: e881fd58d78e04cf6d0de1217f8707c8cc2249bc
+- name: github.com/robfig/cron
+  version: 2315d5715e36303a941d907f038da7f7c44c773b
+- name: github.com/spf13/cobra
+  version: ccaecb155a2177302cb56cae929251a256d0f646
+- name: github.com/spf13/pflag
+  version: 4c012f6dcd9546820e378d0bdda4d8fc772cdfea
+- name: golang.org/x/net
+  version: a04bdaca5b32abe1c069418fb7088ae607de5bd0
+  subpackages:
+  - publicsuffix
+- name: gopkg.in/yaml.v2
+  version: 287cf08546ab5e7e37d55a84f7ed3fd1db036de5
+testImports: []

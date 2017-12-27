@@ -1,0 +1,17 @@
+package: http-watchmen
+import:
+- package: github.com/astaxie/beego
+  subpackages:
+  - logs
+- package: github.com/go-superman/http-watchmen
+  subpackages:
+  - cmd
+  - job
+  - logger
+  - mail
+  - utils
+- package: github.com/parnurzeal/gorequest
+- package: github.com/robfig/cron
+- package: github.com/spf13/cobra
+- package: github.com/spf13/pflag
+- package: gopkg.in/yaml.v2

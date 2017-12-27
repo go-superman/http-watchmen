@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/hyhlinux/http-watchmen/cmd"
-	"github.com/hyhlinux/http-watchmen/logger"
+	"github.com/go-superman/http-watchmen/cmd"
+	"github.com/go-superman/http-watchmen/logger"
 	"sync"
 )
 
