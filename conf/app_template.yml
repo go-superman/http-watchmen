@@ -1,0 +1,11 @@
+timezone: Asia/Shanghai
+jobs: [{name: job-api, url: 'http://47.91.255.0/api/index', retry_cnt: 3, retrytime: 5,
+    cron: '@every 20s', command: [ls, pwd], env: [MONGOPORT=27017], mail: null}]
+mail:
+  smtp_user: user
+  smtp_passwd: pass
+  smtp_host: smtp.zoho.com:465
+  smtp_tls: true
+  mail_to:
+  - huoyinghui@apkpure.net
+  mail_subject: ""

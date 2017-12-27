@@ -13,7 +13,7 @@ build/
 *.dylib
 *.json
 conf/app
-conf/*.yml
+conf/app.yml
 conf/*.json
 storage/*.yml
 smart-backup
