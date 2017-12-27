@@ -21,6 +21,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"strconv"
 	"time"
 
 	"github.com/robfig/cron"
@@ -80,18 +81,20 @@ func cronCall(cmd *cobra.Command, args []string) {
 	}
 
 	logger.Infof("config-json:%v", string(b))
-
 	location, err := time.LoadLocation(bcJob.Timezone)
 	if err != nil {
 		logger.Errorf("ERROR : %s", err)
 		return
 	}
 	c := cron.NewWithLocation(location)
-	for index, job := range bcJob.Jobs {
-		logger.Debugf("index:%v job:%v bcjob.mail:%v", index, job, bcJob.Mail)
-		job.Mail = &bcJob.Mail
-		job.Timezone = bcJob.Timezone
-		c.AddJob(job.Cron, job)
+	for index, task := range bcJob.Jobs {
+		logger.Debugf("index:%v job:%v bcjob.mail:%v", index, task, bcJob.Mail)
+		task.Mail = &bcJob.Mail
+		task.Timezone = bcJob.Timezone
+		task.RedisAddr = parseRootCmd("redisAddr")
+		task.RedisPasswd = parseRootCmd("redisPasswd")
+		task.RedisDB = parseRootCmdInt("redisDBIndex", 0)
+		c.AddJob(task.Cron, task)
 	}
 
 	//启动启动定时任务
@@ -125,4 +128,32 @@ func displayJob(c *cron.Cron) {
 		logger.Debugf("cur_id:%v job-next-time:%v", index, job.Next)
 	}
 	return
+}
+
+func parseRootCmd(name string) (value string){
+	flag := RootCmd.Flag(name)
+	err := checkFlag(flag)
+	if err != nil {
+		logger.Debugf("err:%v, will be empty", err)
+		value = flag.DefValue
+	}else{
+		value = flag.Value.String()
+	}
+	return value
+}
+
+//value: 当解析出错是，期望的值
+func parseRootCmdInt(name string, value int)  (ret int){
+	flagString := parseRootCmd(name)
+	ret, err := strconv.Atoi(flagString)
+	if err != nil {
+		logger.Warnf("err:%v", err)
+		ret = value
+	}
+	return ret
+}
+
+func resetLog()  {
+	level := parseRootCmdInt("logLevel", 7)
+	logger.ResetLevel(level)
 }

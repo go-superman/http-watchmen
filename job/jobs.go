@@ -8,6 +8,7 @@ import (
 	"github.com/go-superman/http-watchmen/logger"
 	"github.com/go-superman/http-watchmen/mail"
 	"github.com/go-superman/http-watchmen/utils"
+	"github.com/go-superman/http-watchmen/storage"
 	"github.com/robfig/cron"
 	"gopkg.in/yaml.v2"
 	"io"
@@ -38,17 +39,22 @@ type Job struct {
 	Command   []string       `yaml:"command" json:"command"` // shell command
 	ENV       []string       `yaml:"env" json:"env"`         // shell env
 	Mail      *mail.MailInfo `yaml:"mail" json:"mail"`       // 邮件
+	RedisAddr string	   `yaml:"redis_addr" json:"redis_addr"`
+	RedisPasswd string	   `yaml:"redis_passwd" json:"redis_passwd"`
+	RedisDB  int		   `yaml:"redis_db" json:"redis_db"`
 }
 
 func (job *Job) Run() {
 	var err error
+	var data string
 	var allTextOut []string
 	var allTextErr []string
 	outPutPath := path.Join(APPBACKUPPATH, job.Name)
 
 	logger.Debugf("job.name:%v start .. ", job.Name)
 	defer displayNext(job.Name, job.Cron, job.Timezone)
-	err = utils.HealthCheck(job.Url, job.RetryCnt, time.Duration(job.RetryTime)*time.Second)
+	data, err = utils.HealthCheck(job.Url, job.RetryCnt, time.Duration(job.RetryTime)*time.Second)
+	defer job.saveData(data)
 	if err == nil {
 		// 本次健康检查成功
 		return
@@ -172,3 +178,12 @@ func LoadConf(filepath string) (tmpBackupJobConfig *JobConfig, err error) {
 
 	return tmpBackupJobConfig, nil
 }
+func (job *Job) saveData(data string) {
+	key := fmt.Sprintf("%v:%v", "http-watchmen", job.Name)
+	client := storage.NewClient(job.RedisAddr, job.RedisPasswd, job.RedisDB)
+	err := client.Set(key, data, 0).Err()
+	if err != nil {
+		logger.Errorf("saveData:%v err:%v", data, err)
+	}
+}
+

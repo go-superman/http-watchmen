@@ -1,17 +1,26 @@
 hash: 16504b8333a229abe232b416b5904f2ee0c8d600539246274f0c92cbeac9092b
-updated: 2017-12-27T09:53:29.440523184+08:00
+updated: 2017-12-27T17:42:56.584955329+08:00
 imports:
 - name: github.com/astaxie/beego
   version: f16688817aa428d10361394015b40d096b680542
   subpackages:
   - logs
+- name: github.com/go-redis/redis
+  version: 9c885d5ba8a22f260badcffde1649915fbeebfc0
+  subpackages:
+  - internal
+  - internal/consistenthash
+  - internal/hashtag
+  - internal/pool
+  - internal/proto
 - name: github.com/go-superman/http-watchmen
-  version: bd7e73cd8c4d04c33c15c34caf874a33da3dacc4
+  version: a92d6577ff8936064fe7125f385cf135cc1b9407
   subpackages:
   - cmd
   - job
   - logger
   - mail
+  - storage
   - utils
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
