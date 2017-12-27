@@ -3,7 +3,6 @@ language: go
 go:
     - 1.8.x
     - 1.9.x
-    - tip
 
 script:              # 执行:下面的命令
   - ls  -al
