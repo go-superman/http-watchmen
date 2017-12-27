@@ -7,4 +7,4 @@
 #### todo
 1.任务状态保存到redis
 ---
-[![Build Status](https://travis-ci.org/hyhlinux/http-watchmen.svg?branch=master)](https://travis-ci.org/hyhlinux/http-watchmen)
+[![Build Status](https://travis-ci.org/go-superman/http-watchmen.svg?branch=master)](https://travis-ci.org/go-superman/http-watchmen)
