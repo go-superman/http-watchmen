@@ -1,0 +1,17 @@
+jobs:
+- command: ["ls",  "nginx -s reload"]
+  cron: '@every 10s'
+  env: [MONGOPORT=27017]
+  mail: null
+  name: job-api
+  retry_cnt: 3
+  retrytime: 5
+  url: http://47.91.255.0/api/index2
+mail:
+  mail_subject: ''
+  mail_to: [huoyinghui@apkpure.net]
+  smtp_host: smtp.zoho.com:465
+  smtp_passwd: pass
+  smtp_tls: true
+  smtp_user: user
+timezone: Asia/Shanghai
