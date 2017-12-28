@@ -3,6 +3,7 @@ BINARY = http-watchmen
 
 GO_FLAGS = #-v -race
 GO_VERSION = latest
+APHLIE_PACK = -tags netgo
 
 GOOS = `go env GOHOSTOS`
 GOARCH = `go env GOHOSTARCH`
@@ -23,14 +24,14 @@ fmt:
 
 build:
 	mkdir -p build/$(GOOS)-$(GOARCH)
-	go build $(GO_LDFLAGS) $(GO_FLAGS) -o build/$(GOOS)-$(GOARCH)/$(BINARY) $(SOURCE_DIR)
+	go build $(GO_LDFLAGS) $(GO_FLAGS) $(APHLIE_PACK) -o build/$(GOOS)-$(GOARCH)/$(BINARY) $(SOURCE_DIR)
 
 package:
 	cd build/$(GOOS)-$(GOARCH)/ &&  tar zcvf $(NAME)-$(GOOS)-$(GOARCH)-`git describe --tags`.tar.gz $(BINARY)
 
 linux:
 	mkdir -p build/linux-amd64
-	GOOS=linux GOARCH=amd64 go build $(GO_LDFLAGS) $(GO_FLAGS) -o linux/$(BINARY) $(SOURCE_DIR)
+	GOOS=linux GOARCH=amd64 go build $(GO_LDFLAGS) $(GO_FLAGS)  $(APHLIE_PACK) -o linux/$(BINARY) $(SOURCE_DIR)
 
 docker:
 	docker run --rm -v "`pwd`":/go/src/$(NAME) -w /go/src/$(NAME) golang:$(GO_VERSION) bash -c "make build "
