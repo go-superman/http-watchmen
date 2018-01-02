@@ -60,6 +60,7 @@ func (job *Job) Run() {
 		// 本次健康检查成功
 		return
 	}
+
 	// err不为空时，执行用户指定的cmd
 	osEnv := os.Environ()
 	for index, cmdTmp := range job.Command {
@@ -102,7 +103,6 @@ func (job *Job) Run() {
 
 		w.Wait()
 	}
-	return
 
 SENDMAIL:
 	// 用户命令执行失败时，发送邮件通知
