@@ -24,8 +24,11 @@ func HealthCheck(url string, retryCnt int, retryTime time.Duration) (data string
 		dataInfo["err"] = ""
 		dataInfo["end_time"] = time.Now().UTC().String()
 		if err != nil {
-			retryCountReturn := resp.Header.Get("Retry-Count")
-			dataInfo["retry_count_return"] = retryCountReturn
+			retryCountReturn := ""
+			if resp != nil {
+				retryCountReturn = resp.Header.Get("Retry-Count")
+				dataInfo["retry_count_return"] = retryCountReturn
+			}
 			dataInfo["err"] = fmt.Sprintf("%v", err)
 			logger.Warnf("Expected [%v] retry but was [%v]", retryCnt, retryCountReturn)
 		}
