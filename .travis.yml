@@ -10,7 +10,7 @@ script:              # 执行:下面的命令
   - go test -v -cover=true ./cmd/...
   - go test -v -cover=true ./utils/...
   - mkdir -p build/linux-amd64/
-  - GOOS=linux GOARCH=amd64 go build -tags netgo -o linux-amd64/http-watchmen ./
+  - GOOS=linux GOARCH=amd64 go build -tags netgo -o build/linux-amd64/http-watchmen ./
   - go build
   - ls -al 
 
