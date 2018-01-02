@@ -14,7 +14,7 @@ script:              # 执行:下面的命令
 
 before_deploy:       # 部署之前
   # 使用 mv 命令进行修改apk文件的名字
-  - ls  -al build/
+  - ls  -al http-watchmen
 
 deploy:              # 部署
   provider: releases # 部署到GitHub Release，除此之外，Travis CI还支持发布到fir.im、AWS、Google App Engine等
