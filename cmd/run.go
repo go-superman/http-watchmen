@@ -26,6 +26,7 @@ import (
 
 var jobName string
 var redisAddr string
+var redisKeyPrefix string
 var redisPasswd string
 var redisDBIndex int
 var serPort int
@@ -76,6 +77,7 @@ to quickly create a Cobra application.`,
 				task.Timezone = bcJob.Timezone
 				task.RedisAddr = parseRootCmd("redisAddr")
 				task.RedisPasswd = parseRootCmd("redisPasswd")
+				task.RedisKeyPrefix = parseRootCmd("redisKeyPrefix")
 				task.RedisDB = parseRootCmdInt("redisDBIndex", 0)
 				task.Run()
 			}
@@ -101,6 +103,7 @@ func checkFlag(f *flag.Flag) (err error) {
 func init() {
 	RootCmd.PersistentFlags().StringVar(&redisAddr, "redisAddr", "localhost:6379", "redis ser addr")
 	RootCmd.PersistentFlags().StringVar(&redisPasswd, "redisPasswd", "", "redis ser passwd")
+	RootCmd.PersistentFlags().StringVar(&redisKeyPrefix, "redisKeyPrefix",  "redisKeyPrefix", "redis key prefix ")
 	RootCmd.PersistentFlags().IntVar(&redisDBIndex, "redisDBIndex", 0, "redis ser DB 0/1/..")
 	RootCmd.PersistentFlags().IntVar(&logLevel, "logLevel",  6, "info")
 

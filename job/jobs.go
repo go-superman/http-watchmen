@@ -41,6 +41,7 @@ type Job struct {
 	Mail      *mail.MailInfo `yaml:"mail" json:"mail"`       // 邮件
 	RedisAddr string	   `yaml:"redis_addr" json:"redis_addr"`
 	RedisPasswd string	   `yaml:"redis_passwd" json:"redis_passwd"`
+	RedisKeyPrefix string	   `yaml:"redis_key_prefix" json:"redis_key_prefix""`
 	RedisDB  int		   `yaml:"redis_db" json:"redis_db"`
 }
 
@@ -179,7 +180,7 @@ func LoadConf(filepath string) (tmpBackupJobConfig *JobConfig, err error) {
 	return tmpBackupJobConfig, nil
 }
 func (job *Job) saveData(data string) {
-	key := fmt.Sprintf("%v:%v", "http-watchmen", job.Name)
+	key := fmt.Sprintf("%v:%v", job.RedisKeyPrefix, job.Name)
 	client := storage.NewClient(job.RedisAddr, job.RedisPasswd, job.RedisDB)
 	err := client.Set(key, data, 0).Err()
 	if err != nil {

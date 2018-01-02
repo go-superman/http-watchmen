@@ -93,6 +93,7 @@ func cronCall(cmd *cobra.Command, args []string) {
 		task.Timezone = bcJob.Timezone
 		task.RedisAddr = parseRootCmd("redisAddr")
 		task.RedisPasswd = parseRootCmd("redisPasswd")
+		task.RedisKeyPrefix = parseRootCmd("redisKeyPrefix")
 		task.RedisDB = parseRootCmdInt("redisDBIndex", 0)
 		c.AddJob(task.Cron, task)
 	}
