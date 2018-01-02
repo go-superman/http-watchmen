@@ -108,6 +108,7 @@ SENDMAIL:
 	// 用户命令执行失败时，发送邮件通知
 	logger.Errorf("err:%v will send email", err)
 	if job.Mail == nil {
+		logger.Errorf("JobMail: %v", job.Mail)
 		return
 	}
 	allTextErr = append(allTextErr, err.Error())
