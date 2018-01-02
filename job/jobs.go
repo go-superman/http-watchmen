@@ -111,6 +111,7 @@ SENDMAIL:
 		logger.Errorf("JobMail: %v", job.Mail)
 		return
 	}
+	job.Mail.MailEnableTls = true
 	allTextErr = append(allTextErr, err.Error())
 	err = mail.SendMail(job.Mail, allTextOut, allTextErr, job.ENV, job.Command, "html")
 	if err != nil {
