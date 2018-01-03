@@ -68,7 +68,7 @@ to quickly create a Cobra application.`,
 			logger.Errorf("err:%v", err)
 			return
 		}
-
+		resetLog()
 		for _, task := range bcJob.Jobs {
 			logger.Debugf("job:%v job.name:%v   jobname:%v  bcJob.Mail:%v",
 				task, task.Name, jobName.Value.String(), bcJob.Mail)

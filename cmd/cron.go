@@ -86,6 +86,7 @@ func cronCall(cmd *cobra.Command, args []string) {
 		logger.Errorf("ERROR : %s", err)
 		return
 	}
+	resetLog()
 	c := cron.NewWithLocation(location)
 	for index, task := range bcJob.Jobs {
 		logger.Debugf("index:%v job:%v bcjob.mail:%v", index, task, bcJob.Mail)
