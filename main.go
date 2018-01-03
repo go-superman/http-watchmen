@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/go-superman/http-watchmen/cmd"
-	"github.com/go-superman/http-watchmen/logger"
+	//"github.com/go-superman/http-watchmen/logger"
 	"sync"
 )
 
@@ -16,5 +16,5 @@ func main() {
 	}()
 
 	wg.Wait()
-	logger.Debug("ser done")
+	//logger.Debug("ser done")
 }
