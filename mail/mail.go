@@ -91,7 +91,7 @@ func SendMailUsingTLS(addr string, auth smtp.Auth, from string, to []string, msg
 	if auth != nil {
 		if ok, _ := c.Extension("AUTH"); ok {
 			if err = c.Auth(auth); err != nil {
-				logger.Errorf("Error during AUTH", err)
+				logger.Errorf("Error during AUTH:%v", err)
 				return err
 			}
 		}
