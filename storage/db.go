@@ -24,7 +24,8 @@ func NewClient(addr string, passwd string, db int)  (*redis.Client){
 			for {
 				pong, err := client.Ping().Result()
 				if err != nil {
-					panic(err)
+					//panic(err)
+					logger.Errorf("err:%v", err)
 				}
 				time.Sleep(5*time.Second)
 				logger.Debugf("pong:%v", pong)
