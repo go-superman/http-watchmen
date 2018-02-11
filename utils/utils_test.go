@@ -20,7 +20,7 @@ func TestHealthCheck(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				url:       "http://47.91.255.0/api/in2dex",
+				url:       "http://47.91.255.0/api/index",
 				retryCnt:  3,
 				retryTime: 5 * time.Second,
 			},
@@ -38,7 +38,7 @@ func TestHealthCheck(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if data, err := HealthCheck(tt.args.url, tt.args.retryCnt, []int{}, 1*time.Millisecond, tt.args.retryTime); (err != nil) != tt.wantErr {
+			if data, err := HealthCheck(tt.args.url, tt.args.retryCnt, []int{}, 5*time.Second, tt.args.retryTime); (err != nil) != tt.wantErr {
 				t.Errorf("HealthCheck() error = %v, wantErr %v %v", err, tt.wantErr, data)
 			}else{
 				t.Log(data)
