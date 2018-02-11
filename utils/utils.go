@@ -25,10 +25,6 @@ func HealthCheck(url string, retryCnt int, status []int, timeout, retryTime time
 	resp, _, errs := gorequest.New().Timeout(timeout).Get(url).
 		Retry(retryCnt, retryTime, status...).
 		End()
-	for i:=0; i<retryCnt; i++ {
-		resp, _, errs := gorequest.New().Get(url).End()
-		logger.Warnf("resp:%v errs:%v", resp.StatusCode, errs)
-	}
 	defer func() {
 		dataInfo["retry_count_return"] = 0
 		dataInfo["err"] = ""
