@@ -35,7 +35,7 @@ type Job struct {
 	RequestTimout int        `yaml:"request_timout" json:"request_timout"` //  请求超时
 	RequestStatus []int      `yaml:"request_status" json:"request_status""` //  请求超时
 	RetryCnt  int            `yaml:"retry_cnt" json:"retry_cnt"` // 重试次数
-	RetryTime int            `yaml:"" json:"retry_time"`
+	RetryTime int            `yaml:"retry_time" json:"retry_time"`
 	Timezone  string         `yaml:"-" json:"-"`             // 无需设置，程序会把BackupJobConfig.Timezone复制过来
 	Cron      string         `yaml:"cron" json:"cron"`       // crontab
 	Command   []string       `yaml:"command" json:"command"` // shell command
