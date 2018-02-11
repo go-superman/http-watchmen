@@ -31,6 +31,8 @@ func TestNewConf(t *testing.T) {
 			ENV: []string{
 				"MONGOPORT=27017",
 			},
+			RequestTimout: 5,
+			RequestStatus: []int{},
 		},
 	}
 	conf := JobConfig{

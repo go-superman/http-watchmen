@@ -6,6 +6,10 @@ jobs:
   name: job-api
   retry_cnt: 3
   retrytime: 5
+  # 接口请求超时时间，单位s
+  request_timout: 5
+  # 接口请求返回异常状态. 默认包含500/404
+  request_status: []
   url: http://47.91.255.0/api/index
 mail:
   mail_subject: ''
