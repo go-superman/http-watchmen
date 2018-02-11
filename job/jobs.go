@@ -32,6 +32,8 @@ type JobConfig struct {
 type Job struct {
 	Name      string         `yaml:"name" json:"name"`
 	Url       string         `yaml:"url" json:"url"`             // url 健康检查
+	RequestTimout int        `yaml:"request_timout" json:"request_timout"` //  请求超时
+	RequestStatus []int      `yaml:"request_status" json:"request_status""` //  请求超时
 	RetryCnt  int            `yaml:"retry_cnt" json:"retry_cnt"` // 重试次数
 	RetryTime int            `yaml:"" json:"retry_time"`
 	Timezone  string         `yaml:"-" json:"-"`             // 无需设置，程序会把BackupJobConfig.Timezone复制过来
@@ -54,7 +56,7 @@ func (job *Job) Run() {
 
 	logger.Debugf("job.name:%v start .. ", job.Name)
 	defer displayNext(job.Name, job.Cron, job.Timezone)
-	data, err = utils.HealthCheck(job.Url, job.RetryCnt, time.Duration(job.RetryTime)*time.Second)
+	data, err = utils.HealthCheck(job.Url, job.RequestTimout, job.RetryCnt, job.RequestStatus, job.RequestTimout, time.Duration(job.RetryTime)*time.Second)
 	defer job.saveData(data)
 	if err == nil {
 		// 本次健康检查成功

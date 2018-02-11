@@ -11,14 +11,24 @@ import (
 
 
 
-func HealthCheck(url string, retryCnt int, retryTime time.Duration) (data string, err error) {
+func HealthCheck(url string, retryCnt int, status []int, timeout, retryTime time.Duration) (data string, err error) {
 	// 超过一定时间，返回非200，健康检查失败.
 	dataInfo := make(map[string]interface{})
 	dataInfo["url"] = url
 	dataInfo["create_time"] = time.Now().UTC().String()
-	resp, _, errs := gorequest.New().Get(url).
-		Retry(retryCnt, retryTime, http.StatusNotFound, http.StatusBadRequest, http.StatusInternalServerError).
+	if timeout <= 0 {
+		timeout = 5*time.Second
+	}
+	if len(status) == 0 {
+		status = []int{http.StatusNotFound, http.StatusBadRequest, http.StatusInternalServerError}
+	}
+	resp, _, errs := gorequest.New().Timeout(timeout).Get(url).
+		Retry(retryCnt, retryTime, status...).
 		End()
+	for i:=0; i<retryCnt; i++ {
+		resp, _, errs := gorequest.New().Get(url).End()
+		logger.Warnf("resp:%v errs:%v", resp.StatusCode, errs)
+	}
 	defer func() {
 		dataInfo["retry_count_return"] = 0
 		dataInfo["err"] = ""
