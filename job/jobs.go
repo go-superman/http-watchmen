@@ -124,7 +124,7 @@ SENDMAIL:
 	}
 	err = mail.SendMail(&tmpMail, allTextOut, allTextErr, job.ENV, job.Command, "html")
 	if err != nil {
-		logger.Errorf("send mail err:%v", err)
+		logger.Errorf("send mail err:%v tmpMail.Subject:%v", err, tmpMail.MailSubject)
 	}
 	return
 }
