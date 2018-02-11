@@ -56,7 +56,7 @@ func (job *Job) Run() {
 
 	logger.Debugf("job.name:%v start .. ", job.Name)
 	defer displayNext(job.Name, job.Cron, job.Timezone)
-	data, err = utils.HealthCheck(job.Url, job.RequestTimout, job.RetryCnt, job.RequestStatus, job.RequestTimout, time.Duration(job.RetryTime)*time.Second)
+	data, err = utils.HealthCheck(job.Url, job.RetryCnt, job.RequestStatus, time.Duration(job.RequestTimout)*time.Second, time.Duration(job.RetryTime)*time.Second)
 	defer job.saveData(data)
 	if err == nil {
 		// 本次健康检查成功
