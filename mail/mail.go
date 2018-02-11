@@ -10,6 +10,7 @@ import (
 	"net"
 	"net/smtp"
 	"strings"
+	"time"
 )
 
 var mailTpl *template.Template
@@ -18,6 +19,8 @@ func init() {
 	mailTpl, _ = template.New("mail_tpl").Parse(`
 	你好 {{.username}}，<br/>
 
+
+<p>时间戳：{{.time}}</p>
 <p>任务详情：</p>
 <p>
 命令数量:{{.cmdlen}}
@@ -138,6 +141,7 @@ func SendToMail(user, password, host string, enableTls bool, to []string, subjec
 
 	data := make(map[string]interface{})
 	data["username"] = to
+	data["time"] = time.Now().UTC()
 	data["output"] = out
 	data["outputerr"] = outErr
 	data["cmds"] = cmd
