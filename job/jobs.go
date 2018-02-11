@@ -55,7 +55,7 @@ func (job *Job) Run() {
 	outPutPath := path.Join(APPBACKUPPATH, job.Name)
 
 	logger.Debugf("job.name:%v start .. ", job.Name)
-	defer displayNext(job.Name, job.Cron, job.Timezone)
+	displayNext(job.Name, job.Cron, job.Timezone)
 	data, err = utils.HealthCheck(job.Url, job.RetryCnt, job.RequestStatus, time.Duration(job.RequestTimout)*time.Second, time.Duration(job.RetryTime)*time.Second)
 	defer job.saveData(data)
 	if err == nil {
