@@ -114,8 +114,15 @@ SENDMAIL:
 	job.Mail.MailEnableTls = true
 	allTextErr = append(allTextErr, fmt.Sprintf("%v", err))
 	allTextOut = append(allTextOut, fmt.Sprintf("%v", job.Name))
-	job.Mail.MailSubject = fmt.Sprintf("%v-%v:%v", job.Mail.MailSubject, job.RedisKeyPrefix, job.Name)
-	err = mail.SendMail(job.Mail, allTextOut, allTextErr, job.ENV, job.Command, "html")
+	tmpMail := mail.MailInfo{
+		MailUser: job.Mail.MailUser,
+		MailPasswd: job.Mail.MailPasswd,
+		MailHost: job.Mail.MailHost,
+		MailSubject: fmt.Sprintf("%v-%v:%v", job.Mail.MailSubject, job.RedisKeyPrefix, job.Name),
+		MailTo: job.Mail.MailTo,
+		MailEnableTls: job.Mail.MailEnableTls,
+	}
+	err = mail.SendMail(&tmpMail, allTextOut, allTextErr, job.ENV, job.Command, "html")
 	if err != nil {
 		logger.Errorf("send mail err:%v", err)
 	}
