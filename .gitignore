@@ -6,7 +6,7 @@ http-watchmen
 *.sh
 *.html
 .idea/
-build/
+#build/
 *.exe
 *.dll
 *.so
