@@ -17,15 +17,15 @@ func TestHealthCheck(t *testing.T) {
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{
-			name: "",
-			args: args{
-				url:       "http://47.91.255.0/api/index",
-				retryCnt:  3,
-				retryTime: 5 * time.Second,
-			},
-			wantErr: false,
-		},
+		// {
+		// 	name: "",
+		// 	args: args{
+		// 		url:       "http://47.91.255.0/api/index",
+		// 		retryCnt:  3,
+		// 		retryTime: 5 * time.Second,
+		// 	},
+		// 	wantErr: false,
+		// },
 		{
 			name: "img",
 			args: args{
@@ -40,7 +40,7 @@ func TestHealthCheck(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if data, err := HealthCheck(tt.args.url, tt.args.retryCnt, []int{}, 5*time.Second, tt.args.retryTime); (err != nil) != tt.wantErr {
 				t.Errorf("HealthCheck() error = %v, wantErr %v %v", err, tt.wantErr, data)
-			}else{
+			} else {
 				t.Log(data)
 			}
 		})
